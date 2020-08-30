@@ -19,8 +19,8 @@ class SearchController {
     try {
       const browser: Browser = await puppeteer.launch()
       const page: Page = await browser.newPage()
-      await page.goto(SearchController.getSearchUrl(checkin, checkout))
-      await page.waitForFunction('document.readyState === "complete"')
+      await page.goto(SearchController.getSearchUrl(checkin, checkout), { waitUntil: 'networkidle0' })
+      await page.waitForSelector('#results', { visible: true })
 
       const rooms: Room[] = await SearchController.getRooms(page, browser)
       await browser.close()
@@ -65,7 +65,7 @@ class SearchController {
     }
   }
 
-  private static validate (checkin: any, checkout: any): string {
+  private static validate (checkin: string, checkout: string): string {
     if (!checkin || !checkout) {
       return 'Checkin and checkout parameters are required'
     }
