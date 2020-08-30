@@ -17,16 +17,10 @@ class SearchController {
     }
 
     try {
-      const browser: Browser = await puppeteer.launch({
-        headless: true,
-        defaultViewport: {
-          width: 1100,
-          height: 600
-        }
-      })
+      const browser: Browser = await puppeteer.launch()
       const page: Page = await browser.newPage()
       await page.goto(SearchController.getSearchUrl(checkin, checkout))
-      await page.waitForSelector('#results', { visible: true })
+      await page.waitForFunction('document.readyState === "complete"')
 
       const rooms: Room[] = await SearchController.getRooms(page, browser)
       await browser.close()
@@ -64,7 +58,8 @@ class SearchController {
       await descriptionPage.waitForSelector(SearchController.DESCRIPTION_SELECTOR, { visible: true })
       rooms[index].description = await descriptionPage.$eval(
         SearchController.DESCRIPTION_SELECTOR,
-        (description) => description.textContent.replace('\nDescrição\n\n\n', '')
+        (description) => description.textContent
+          .replace('\nDescrição\n\n\n', '')
       )
       await descriptionPage.close()
     }
