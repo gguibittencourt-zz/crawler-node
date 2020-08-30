@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import puppeteer, { Page, Browser, ElementHandle } from 'puppeteer'
+import puppeteer, { Page, Browser } from 'puppeteer'
 import { Room } from '@interfaces/Room'
 
 class SearchController {
-  private static readonly STRING_DATE_REGEX: RegExp = new RegExp('^(\\d{2})\\/(\\d{2})\\/(\\d{4})$')
+  private static readonly DESCRIPTION_SELECTOR: string ='#popupModule .roomDescription'
   private static readonly URL: string = 'https://myreservations.omnibees.com'
-  private static readonly SEARCH_URL: string = SearchController.URL + '/default.aspx?q=5462#/&diff=false&CheckIn={0}&CheckOut={1}&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
-  private static readonly DESCRIPTION_SELECTOR: string = '#popupModule .roomDescription'
+  private static readonly SEARCH_URL: string =SearchController.URL + '/default.aspx?q=5462#/&diff=false&CheckIn={0}&CheckOut={1}&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
+  private static readonly STRING_DATE_REGEX: RegExp = new RegExp('^(\\d{2})\\/(\\d{2})\\/(\\d{4})$')
 
   public async search (req: Request, res: Response): Promise<any> {
     const { checkin, checkout } = req.body
@@ -27,6 +27,7 @@ class SearchController {
       const page: Page = await browser.newPage()
       await page.goto(SearchController.getSearchUrl(checkin, checkout))
       await page.waitForSelector('#results', { visible: true })
+      // await page.waitForFunction(selector => !!document.querySelector(selector) || !!document.querySelector('#results .roomExcerpt .bestPriceTextColor .sincePriceContent h6'), {}, '.noResults')
 
       const rooms: Room[] = await SearchController.getRooms(page, browser)
       await browser.close()
@@ -37,10 +38,12 @@ class SearchController {
   }
 
   private static async getRooms (page: Page, browser: Browser): Promise<Room[]> {
+    // await page.waitForSelector('#results .roomExcerpt .bestPriceTextColor .sincePriceContent h6')
+
     const rooms: Room[] = await page.$$eval('#results .roomExcerpt', async (elements: Element[]) => {
       return elements.map((element: Element) => {
         const room: Room = { description: '', images: [], name: '', price: '' }
-        room.price = element.querySelector('.bestPriceTextColor .sincePriceContent h6').textContent
+        room.price = document.querySelector('.bestPriceTextColor .sincePriceContent h6').textContent
         room.name = element.querySelector('.excerpt h5').textContent
         room.images = Array.from(element.querySelectorAll('.roomSlider .slide a')).map((image: Element) => {
           return 'https://myreservations.omnibees.com' + image.getAttribute('href')
@@ -62,7 +65,7 @@ class SearchController {
       const descriptionPage: Page = await browser.newPage()
       await descriptionPage.goto(SearchController.URL + descriptionLink)
       await descriptionPage.waitForSelector(SearchController.DESCRIPTION_SELECTOR, { visible: true })
-      rooms[index].description = await descriptionPage.$eval(SearchController.DESCRIPTION_SELECTOR, description => description.textContent.replace('\nDescrição\n\n\n', ''))
+      rooms[index].description = await descriptionPage.$eval(SearchController.DESCRIPTION_SELECTOR, (description) => description.textContent.replace('\nDescrição\n\n\n', ''))
       await descriptionPage.close()
     }
   }

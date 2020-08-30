@@ -1,5 +1,5 @@
 import express from 'express'
-import routes from './routes'
+import routes from '@config/Routes'
 
 class App {
   public express: express.Application
