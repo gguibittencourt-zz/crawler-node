@@ -42,7 +42,7 @@ class SearchController {
 
     const rooms: Room[] = await page.$$eval('#results .roomExcerpt', async (elements: Element[]) => {
       return elements.map((element: Element) => {
-        const room: Room = { description: '', images: [], name: '', price: '' }
+        const room: Room = { name: '', price: '', description: '', images: [] }
         room.price = document.querySelector('.bestPriceTextColor .sincePriceContent h6').textContent
         room.name = element.querySelector('.excerpt h5').textContent
         room.images = Array.from(element.querySelectorAll('.roomSlider .slide a')).map((image: Element) => {
