@@ -2,7 +2,7 @@
   Crawler node
 </h1>
 
-## Sobre o projeto
+## :books: Sobre o projeto
 
 Este projeto visa a criação de um web crawler em Node.js que obtém as informações de quartos do hotel https://lecanton.com.br/ para um período específico.
 
@@ -24,7 +24,7 @@ Abaixo segue as tecnologias utilizadas neste projeto:
     - [ts-node-dev](https://github.com/whitecolor/ts-node-dev) - Ferramenta que compila seus projetos com Typescript e reinicia o projeto quando o arquivo é modificado;
     - [tsconfig-paths](https://github.com/dividab/tsconfig-paths) - Ferramenta que permite mapear os módulos da aplicação e criar atalhos para essas pastas/arquivos de maneira escalável.
 
-## Começando
+## :rocket: Começando
 
 ### :arrow_right_hook: Pré-requisitos
 
