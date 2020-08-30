@@ -6,7 +6,7 @@
 
 Este projeto visa a criação de um web crawler em Node.js que obtém as informações de quartos do hotel https://lecanton.com.br/ para um período específico.
 
-### Feito Com
+### :arrow_right_hook: Feito Com
 
 Abaixo segue as tecnologias utilizadas neste projeto:
 
@@ -26,12 +26,12 @@ Abaixo segue as tecnologias utilizadas neste projeto:
 
 ## Começando
 
-### Pré-requisitos
+### :arrow_right_hook: Pré-requisitos
 
 - Node > v8.9.4
 - Npm > v5.6.0
 
-### Estrutura de arquivos
+### :arrow_right_hook: Estrutura de arquivos
 
 A estrutura de arquivos está da seguinte maneira:
 
@@ -54,18 +54,18 @@ crawler-node
 └── tsconfig.json
 ```
 
-### Instalação
+### :arrow_right_hook: Instalação
 
     $ git clone https://github.com/gguibittencourt/crawler-node
     $ cd crawler-node
     $ npm install
 
-### Executar a aplicação
+### :arrow_right_hook: Executar a aplicação
     $ npm run dev
 
 A aplicação estará rodando na URL `http://localhost:3000`
 
-### API
+### :arrow_right_hook: API
 
 #### Buscar
 Retorna os dados em json dos quartos encontrados para um período específico.
