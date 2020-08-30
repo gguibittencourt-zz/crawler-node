@@ -86,7 +86,7 @@ Conteúdo:
 [
     {
         "name": "Standard",
-        "price": "R$ 777,10"
+        "price": "R$ 777,10",
         "description": "Ideal para relaxar. Os quartos dispõem de diversos serviços para garantir uma estadia confortável e agradável. Todos os apartamentos Standard possuem ar climatizado, TV LCD 32”, SKY, frigobar, telefone, cofre e secador de cabelo.",
         "images": [
             "https://myreservations.omnibees.com/Handlers/ImageLoader.ashx?imageID=189952.jpg",
@@ -101,21 +101,21 @@ Conteúdo:
 Status: 422
 Conteúdo:
 {
-    "error": "Checkin and checkout parameters are required",
+    "error": "Checkin and checkout parameters are required"
 }
 ```
 ```json
 Status: 422
 Conteúdo:
 {
-    "error": "Checkin and checkout parameters must be in DD/MM/yyyy format",
+    "error": "Checkin and checkout parameters must be in DD/MM/yyyy format"
 }
 ```
 ```json
 Status: 422
 Conteúdo:
 {
-    "error": "The checkin parameter must be less than the checkout",
+    "error": "The checkin parameter must be less than the checkout"
 }
 ```
 
@@ -124,7 +124,7 @@ Conteúdo:
 Status: 500
 Conteúdo:
 {
-    "error": "TimeoutError",
+    "error": "TimeoutError"
 }
 ```
 

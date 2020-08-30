@@ -27,7 +27,6 @@ class SearchController {
       const page: Page = await browser.newPage()
       await page.goto(SearchController.getSearchUrl(checkin, checkout))
       await page.waitForSelector('#results', { visible: true })
-      // await page.waitForFunction(selector => !!document.querySelector(selector) || !!document.querySelector('#results .roomExcerpt .bestPriceTextColor .sincePriceContent h6'), {}, '.noResults')
 
       const rooms: Room[] = await SearchController.getRooms(page, browser)
       await browser.close()
@@ -38,12 +37,10 @@ class SearchController {
   }
 
   private static async getRooms (page: Page, browser: Browser): Promise<Room[]> {
-    // await page.waitForSelector('#results .roomExcerpt .bestPriceTextColor .sincePriceContent h6')
-
     const rooms: Room[] = await page.$$eval('#results .roomExcerpt', async (elements: Element[]) => {
       return elements.map((element: Element) => {
         const room: Room = { name: '', price: '', description: '', images: [] }
-        room.price = document.querySelector('.bestPriceTextColor .sincePriceContent h6').textContent
+        room.price = element.querySelector('.bestPriceTextColor .sincePriceContent h6').textContent
         room.name = element.querySelector('.excerpt h5').textContent
         room.images = Array.from(element.querySelectorAll('.roomSlider .slide a')).map((image: Element) => {
           return 'https://myreservations.omnibees.com' + image.getAttribute('href')
@@ -65,7 +62,10 @@ class SearchController {
       const descriptionPage: Page = await browser.newPage()
       await descriptionPage.goto(SearchController.URL + descriptionLink)
       await descriptionPage.waitForSelector(SearchController.DESCRIPTION_SELECTOR, { visible: true })
-      rooms[index].description = await descriptionPage.$eval(SearchController.DESCRIPTION_SELECTOR, (description) => description.textContent.replace('\nDescrição\n\n\n', ''))
+      rooms[index].description = await descriptionPage.$eval(
+        SearchController.DESCRIPTION_SELECTOR,
+        (description) => description.textContent.replace('\nDescrição\n\n\n', '')
+      )
       await descriptionPage.close()
     }
   }
