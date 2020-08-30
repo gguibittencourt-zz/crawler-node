@@ -5,7 +5,7 @@ import { Room } from '@interfaces/Room'
 class SearchController {
   private static readonly DESCRIPTION_SELECTOR: string ='#popupModule .roomDescription'
   private static readonly URL: string = 'https://myreservations.omnibees.com'
-  private static readonly SEARCH_URL: string =SearchController.URL + '/default.aspx?q=5462#/&diff=false&CheckIn={0}&CheckOut={1}&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
+  private static readonly SEARCH_URL: string = SearchController.URL + '/default.aspx?q=5462#/&diff=false&CheckIn={0}&CheckOut={1}&Code=&group_code=&loyality_card=&NRooms=1&ad=1&ch=0&ag=-'
   private static readonly STRING_DATE_REGEX: RegExp = new RegExp('^(\\d{2})\\/(\\d{2})\\/(\\d{4})$')
 
   public async search (req: Request, res: Response): Promise<any> {

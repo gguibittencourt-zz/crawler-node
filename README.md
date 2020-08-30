@@ -28,8 +28,8 @@ Abaixo segue as tecnologias utilizadas neste projeto:
 
 ### :arrow_right_hook: Pré-requisitos
 
-- Node > v8.9.4
-- Npm > v5.6.0
+- Node > v10.12.0
+- Npm > v6.4.1
 
 ### :arrow_right_hook: Estrutura de arquivos
 
