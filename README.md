@@ -95,6 +95,7 @@ Conteúdo:
         ]
     }
 ]
+* Caso não tiver disponibilidade no período específico, o retorno será um array vazio
 ```
 **Respostas de erros de validação:**
 ```json
